@@ -12,8 +12,14 @@ const seasonAdvice = {
 // Maps each known plant type to its corresponding care advice.
 // A plant type not listed here will fall back to a default message.
 const plantTypeAdvice = {
-  flower: "Use fertiliser to encourage blooms.",
-  vegetable: "Keep an eye out for pests!",
+  flower: "Use fertiliser to encourage blooms.\n",
+  vegetable: "Keep an eye out for pests!\n",
+};
+
+// Maps plant suggestions per season
+const seasonPlantSuggestions = {
+  summer: ["tomatoes", "sunflowers", "basil"],
+  winter: ["kale", "pansies", "garlic"],
 };
 
 // Returns the advice string for a given season, or a default
@@ -26,14 +32,22 @@ function getSeasonAdvice(season) {
 // Returns the advice string for a given plant type, or a default
 // message if the plant type isn't one we have advice for.
 function getPlantTypeAdvice(plantType) {
-  const advice = plantTypeAdvice[plantType] || "No advice for this type of plant.";
+  const advice = plantTypeAdvice[plantType] || "No advice for this type of plant.\n";
   return advice;
 }
 
-// Combines the season advice and plant type advice into one
-// message, then logs it to the console.
+// Returns the advice string - a plant suggestion for the given season - or a default
+// message if the season isn't one we have a suggestion for.
+function getPlantSuggestions(season) {
+  const plants = seasonPlantSuggestions[season];
+  const advice = plants ? plants.join(", ") : "No plant suggestions available for this season.\n";
+  return advice;
+}
+
+// Combines the season advice, plant type advice, and seasonal plant suggestions
+// into one message, then logs it to the console.
 function getGardeningAdvice(season, plantType) {
-  const advice = getSeasonAdvice(season) + getPlantTypeAdvice(plantType);
+  const advice = getSeasonAdvice(season) + getPlantTypeAdvice(plantType) + "Plant suggestions: " + getPlantSuggestions(season);
   console.log(advice);
 }
 
